@@ -1020,6 +1020,32 @@ dependencies = [
 [[package]]
 name = "tetanes"
 version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbefeb53f2f2df167df662367ba80eab41d866ca6f0935fe2041c99da4ca86f4"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "bitflags 2.4.2",
+ "chrono",
+ "dirs",
+ "enum_dispatch",
+ "flate2",
+ "getrandom",
+ "log",
+ "once_cell",
+ "pix-engine",
+ "pretty_env_logger",
+ "rand",
+ "ringbuf",
+ "serde",
+ "serde_json",
+ "structopt",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "tetanes"
+version = "0.9.1"
 dependencies = [
  "anyhow",
  "bincode",
@@ -1045,39 +1071,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "tetanes"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbefeb53f2f2df167df662367ba80eab41d866ca6f0935fe2041c99da4ca86f4"
-dependencies = [
- "anyhow",
- "bincode",
- "bitflags 2.4.2",
- "chrono",
- "dirs",
- "enum_dispatch",
- "flate2",
- "getrandom",
- "log",
- "once_cell",
- "pix-engine",
- "pretty_env_logger",
- "rand",
- "ringbuf",
- "serde",
- "serde_json",
- "structopt",
- "wasm-bindgen",
-]
-
-[[package]]
 name = "tetanes-web"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "console_error_panic_hook",
  "console_log",
  "log",
- "tetanes 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tetanes 0.9.0",
  "wasm-bindgen",
  "wasm-bindgen-test",
 ]
@@ -1166,7 +1166,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "structopt",
- "tetanes 0.9.0",
+ "tetanes 0.9.1",
 ]
 
 [[package]]
