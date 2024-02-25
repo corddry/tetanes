@@ -545,7 +545,8 @@ impl Nes {
             match feature {
                 Feature::ToggleGameplayRecording => match self.replay.mode {
                     ReplayMode::Off => self.start_replay(),
-                    ReplayMode::Recording | ReplayMode::Playback => self.stop_replay(),
+                    ReplayMode::Recording => self.stop_replay(),
+                    ReplayMode::Playback => (),
                 },
                 Feature::ToggleSoundRecording => self.toggle_sound_recording(s),
                 Feature::TakeScreenshot => self.save_screenshot(s),
