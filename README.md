@@ -78,6 +78,12 @@ in [pix-engine][].
 
 ### Install
 
+Note: on M1 hardware, it may be required to add to the LIBRARY_PATH environment variable:
+```
+export LIBRARY_PATH="$LIBRARY_PATH:/opt/homebrew/lib"
+```
+(Found at https://github.com/PistonDevelopers/rust-empty/issues/175)
+
 ```sh
 cargo install tetanes
 ```
