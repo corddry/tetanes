@@ -3,7 +3,7 @@
 //! <http://wiki.nesdev.com/w/index.php/CPU>
 
 use crate::{
-    apu::{Apu, Channel},
+    // apu ::{Apu, Channel},
     bus::CpuBus,
     cart::Cart,
     common::{Clock, Kind, NesRegion, Regional, Reset},
@@ -246,15 +246,15 @@ impl Cpu {
         self.bus.ppu_mut()
     }
 
-    #[inline]
-    pub const fn apu(&self) -> &Apu {
-        self.bus.apu()
-    }
+    // #[inline]
+    // pub const fn apu(&self) -> &Apu {
+    //     self.bus.apu()
+    // }
 
-    #[inline]
-    pub fn apu_mut(&mut self) -> &mut Apu {
-        self.bus.apu_mut()
-    }
+    // #[inline]
+    // pub fn apu_mut(&mut self) -> &mut Apu {
+    //     self.bus.apu_mut()
+    // }
 
     #[inline]
     pub const fn mapper(&self) -> &Mapper {
@@ -358,16 +358,16 @@ impl Cpu {
         self.bus.frame_number()
     }
 
-    #[inline]
-    #[must_use]
-    pub const fn audio_channel_enabled(&self, channel: Channel) -> bool {
-        self.bus.audio_channel_enabled(channel)
-    }
+    // #[inline]
+    // #[must_use]
+    // pub const fn audio_channel_enabled(&self, channel: Channel) -> bool {
+    //     self.bus.audio_channel_enabled(channel)
+    // }
 
-    #[inline]
-    pub fn toggle_audio_channel(&mut self, channel: Channel) {
-        self.bus.toggle_audio_channel(channel);
-    }
+    // #[inline]
+    // pub fn toggle_audio_channel(&mut self, channel: Channel) {
+    //     self.bus.toggle_audio_channel(channel);
+    // }
 
     #[inline]
     #[must_use]

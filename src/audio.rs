@@ -1,7 +1,6 @@
 use crate::{audio::filter::Filter, NesResult};
 use anyhow::anyhow;
 #[cfg(not(target_arch = "wasm32"))]
-use pix_engine::prelude::*;
 use ringbuf::{Consumer, HeapRb, Producer, SharedRb};
 #[cfg(not(target_arch = "wasm32"))]
 use std::time::Duration;
@@ -63,29 +62,29 @@ impl NesAudioCallback {
     }
 }
 
-#[cfg(not(target_arch = "wasm32"))]
-impl AudioCallback for NesAudioCallback {
-    type Channel = f32;
+// #[cfg(not(target_arch = "wasm32"))]
+// impl AudioCallback for NesAudioCallback {
+//     type Channel = f32;
 
-    fn callback(&mut self, out: &mut [Self::Channel]) {
-        self.read(out);
-    }
-}
+//     fn callback(&mut self, out: &mut [Self::Channel]) {
+//         self.read(out);
+//     }
+// }
 
-impl fmt::Debug for NesAudioCallback {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("NesAudioCallback")
-            .field("initialized", &self.initialized)
-            .field("buffer_len", &self.buffer.len())
-            .field("buffer_capacity", &self.buffer.capacity())
-            .finish()
-    }
-}
+// impl fmt::Debug for NesAudioCallback {
+//     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+//         f.debug_struct("NesAudioCallback")
+//             .field("initialized", &self.initialized)
+//             .field("buffer_len", &self.buffer.len())
+//             .field("buffer_capacity", &self.buffer.capacity())
+//             .finish()
+//     }
+// }
 
 #[must_use]
 pub struct AudioMixer {
     #[cfg(not(target_arch = "wasm32"))]
-    device: Option<AudioDevice<NesAudioCallback>>,
+    // device: Option<AudioDevice<NesAudioCallback>>,
     producer: Producer<f32, RbRef>,
     consumer: Option<Consumer<f32, RbRef>>,
     input_frequency: f32,
@@ -103,8 +102,8 @@ impl AudioMixer {
         let buffer = HeapRb::<f32>::new(buffer_size);
         let (producer, consumer) = buffer.split();
         Self {
-            #[cfg(not(target_arch = "wasm32"))]
-            device: None,
+            // #[cfg(not(target_arch = "wasm32"))]
+            // device: None,
             producer,
             consumer: Some(consumer),
             input_frequency,
@@ -128,28 +127,28 @@ impl AudioMixer {
         self.output_frequency
     }
 
-    /// Opens audio callback device for playback
-    ///
-    /// # Errors
-    ///
-    /// This function will return an error if the audio device fails to be opened, or if
-    /// `open_playback` is called more than once.
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn open_playback(&mut self, s: &mut PixState) -> NesResult<()> {
-        match self.consumer.take() {
-            Some(consumer) => {
-                let spec = AudioSpecDesired {
-                    freq: Some(self.output_frequency as i32),
-                    channels: Some(1),
-                    samples: Some((self.capacity() / 2) as u16),
-                };
-                self.device =
-                    Some(s.open_playback(None, &spec, |_| NesAudioCallback::new(consumer))?);
-                Ok(())
-            }
-            None => Err(anyhow!("can only open_playback once")),
-        }
-    }
+    // /// Opens audio callback device for playback
+    // ///
+    // /// # Errors
+    // ///
+    // /// This function will return an error if the audio device fails to be opened, or if
+    // /// `open_playback` is called more than once.
+    // #[cfg(not(target_arch = "wasm32"))]
+    // pub fn open_playback(&mut self, s: &mut PixState) -> NesResult<()> {
+    //     match self.consumer.take() {
+    //         Some(consumer) => {
+    //             let spec = AudioSpecDesired {
+    //                 freq: Some(self.output_frequency as i32),
+    //                 channels: Some(1),
+    //                 samples: Some((self.capacity() / 2) as u16),
+    //             };
+    //             self.device =
+    //                 Some(s.open_playback(None, &spec, |_| NesAudioCallback::new(consumer))?);
+    //             Ok(())
+    //         }
+    //         None => Err(anyhow!("can only open_playback once")),
+    //     }
+    // }
 
     /// Returns audio buffer device for consuming audio samples.
     ///
@@ -179,21 +178,21 @@ impl AudioMixer {
         self.consumer = Some(consumer);
     }
 
-    #[inline]
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn resume(&mut self) {
-        if let Some(ref mut device) = self.device {
-            device.resume();
-        }
-    }
+    // #[inline]
+    // #[cfg(not(target_arch = "wasm32"))]
+    // pub fn resume(&mut self) {
+    //     if let Some(ref mut device) = self.device {
+    //         device.resume();
+    //     }
+    // }
 
-    #[inline]
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn pause(&mut self) {
-        if let Some(ref mut device) = self.device {
-            device.pause();
-        }
-    }
+    // #[inline]
+    // #[cfg(not(target_arch = "wasm32"))]
+    // pub fn pause(&mut self) {
+    //     if let Some(ref mut device) = self.device {
+    //         device.pause();
+    //     }
+    // }
 
     #[inline]
     pub fn set_input_frequency(&mut self, input_frequency: f32) {

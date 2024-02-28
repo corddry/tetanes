@@ -1,6 +1,6 @@
 use crate::{
     apu::{Apu, ApuRegisters, Channel},
-    audio::Audio,
+    // audio::Audio,
     cart::Cart,
     common::{Clock, Kind, NesRegion, Regional, Reset},
     cpu::{Cpu, Irq},
@@ -225,10 +225,10 @@ impl CpuBus {
             .map_or(val, |genie_code| genie_code.read(val))
     }
 
-    #[inline]
-    fn mix_audio(&mut self, sample1: f32, sample2: f32) {
-        self.audio_samples.push(sample1 + sample2);
-    }
+    // #[inline]
+    // fn mix_audio(&mut self, sample1: f32, sample2: f32) {
+    //     self.audio_samples.push(sample1 + sample2);
+    // }
 
     #[inline]
     #[must_use]
@@ -342,13 +342,13 @@ impl Clock for CpuBus {
         self.mapper_mut().clock();
         self.input.clock();
 
-        let apu_output = self.apu.output();
-        let mapper_output = match self.mapper() {
-            Mapper::Exrom(ref exrom) => exrom.output(),
-            Mapper::Vrc6(ref vrc6) => vrc6.output(),
-            _ => 0.0,
-        };
-        self.mix_audio(apu_output, mapper_output);
+        // let apu_output = self.apu.output();
+        // let mapper_output = match self.mapper() {
+        //     Mapper::Exrom(ref exrom) => exrom.output(),
+        //     Mapper::Vrc6(ref vrc6) => vrc6.output(),
+        //     _ => 0.0,
+        // };
+        // self.mix_audio(apu_output, mapper_output);
 
         1
     }

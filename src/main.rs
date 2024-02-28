@@ -19,26 +19,27 @@
 
 use std::{env, path::PathBuf};
 use structopt::StructOpt;
-use tetanes::{mem::RamState, nes::NesBuilder, NesResult};
+use tetanes::{mem::RamState, NesResult};
 
-fn main() -> NesResult<()> {
-    if env::var("RUST_LOG").is_err() {
-        env::set_var("RUST_LOG", "info");
-    }
-    pretty_env_logger::init();
+fn main() {
+    // if env::var("RUST_LOG").is_err() {
+    //     env::set_var("RUST_LOG", "info");
+    // }
+    // pretty_env_logger::init();
 
-    let opt = Opt::from_args();
-    NesBuilder::new()
-        .path(opt.path)
-        .replay(opt.replay)
-        .fullscreen(opt.fullscreen)
-        .ram_state(opt.ram_state)
-        .scale(opt.scale)
-        .speed(opt.speed)
-        .genie_codes(opt.genie_codes)
-        .debug(opt.debug)
-        .build()?
-        .run()
+    // let opt = Opt::from_args();
+    // NesBuilder::new()
+    //     .path(opt.path)
+    //     .replay(opt.replay)
+    //     .fullscreen(opt.fullscreen)
+    //     .ram_state(opt.ram_state)
+    //     .scale(opt.scale)
+    //     .speed(opt.speed)
+    //     .genie_codes(opt.genie_codes)
+    //     .debug(opt.debug)
+    //     .build()?
+    //     .run()
+    log::warn!("main function of headless tetanes has been removed");
 }
 
 #[derive(StructOpt, Debug)]

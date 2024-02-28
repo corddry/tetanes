@@ -56,7 +56,7 @@ pub mod input;
 pub mod mapper;
 pub mod mem;
 #[cfg(not(target_arch = "wasm32"))]
-pub mod nes;
+// pub mod nes;
 pub mod ppu;
 pub mod video;
 

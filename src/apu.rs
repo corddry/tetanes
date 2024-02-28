@@ -6,7 +6,7 @@ use crate::{
         pulse::{OutputFreq, Pulse, PulseChannel},
         triangle::Triangle,
     },
-    audio::Audio,
+    // audio::Audio
     common::{Clock, Kind, NesRegion, Regional, Reset},
     cpu::Irq,
 };
@@ -341,25 +341,25 @@ impl ApuRegisters for Apu {
     }
 }
 
-impl Audio for Apu {
-    #[must_use]
-    fn output(&self) -> f32 {
-        let pulse1 = self.pulse1.output();
-        let pulse2 = self.pulse2.output();
-        let triangle = self.triangle.output();
-        let noise = self.noise.output();
-        let dmc = self.dmc.output();
-        let mut pulse_idx = (pulse1 + pulse2) as usize;
-        if pulse_idx > PULSE_TABLE.len() {
-            pulse_idx %= PULSE_TABLE.len();
-        }
-        let mut tnd_idx = (3.0f32.mul_add(triangle, 2.0 * noise) + dmc) as usize;
-        if tnd_idx > TND_TABLE.len() {
-            tnd_idx %= TND_TABLE.len();
-        }
-        PULSE_TABLE[pulse_idx] + TND_TABLE[tnd_idx]
-    }
-}
+// impl Audio for Apu {
+//     #[must_use]
+//     fn output(&self) -> f32 {
+//         let pulse1 = self.pulse1.output();
+//         let pulse2 = self.pulse2.output();
+//         let triangle = self.triangle.output();
+//         let noise = self.noise.output();
+//         let dmc = self.dmc.output();
+//         let mut pulse_idx = (pulse1 + pulse2) as usize;
+//         if pulse_idx > PULSE_TABLE.len() {
+//             pulse_idx %= PULSE_TABLE.len();
+//         }
+//         let mut tnd_idx = (3.0f32.mul_add(triangle, 2.0 * noise) + dmc) as usize;
+//         if tnd_idx > TND_TABLE.len() {
+//             tnd_idx %= TND_TABLE.len();
+//         }
+//         PULSE_TABLE[pulse_idx] + TND_TABLE[tnd_idx]
+//     }
+// }
 
 impl Clock for Apu {
     fn clock(&mut self) -> usize {

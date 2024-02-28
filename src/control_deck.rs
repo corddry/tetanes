@@ -1,5 +1,5 @@
 use crate::{
-    apu::{Apu, Channel},
+    // apu::{Apu, Channel},
     bus::CpuBus,
     cart::Cart,
     common::{Clock, Kind, NesRegion, Regional, Reset},
@@ -270,10 +270,10 @@ impl ControlDeck {
         self.cpu.ppu_mut()
     }
 
-    #[inline]
-    pub const fn apu(&self) -> &Apu {
-        self.cpu.apu()
-    }
+    // #[inline]
+    // pub const fn apu(&self) -> &Apu {
+    //     self.cpu.apu()
+    // }
 
     #[inline]
     pub const fn mapper(&self) -> &Mapper {
@@ -356,18 +356,18 @@ impl ControlDeck {
         self.cpu.remove_genie_code(genie_code);
     }
 
-    /// Returns whether a given API audio channel is enabled.
-    #[inline]
-    #[must_use]
-    pub const fn channel_enabled(&self, channel: Channel) -> bool {
-        self.cpu.audio_channel_enabled(channel)
-    }
+    // /// Returns whether a given API audio channel is enabled.
+    // #[inline]
+    // #[must_use]
+    // pub const fn channel_enabled(&self, channel: Channel) -> bool {
+    //     self.cpu.audio_channel_enabled(channel)
+    // }
 
-    /// Toggle one of the APU audio channels.
-    #[inline]
-    pub fn toggle_channel(&mut self, channel: Channel) {
-        self.cpu.toggle_audio_channel(channel);
-    }
+    // /// Toggle one of the APU audio channels.
+    // #[inline]
+    // pub fn toggle_channel(&mut self, channel: Channel) {
+    //     self.cpu.toggle_audio_channel(channel);
+    // }
 
     /// Is control deck running.
     #[inline]
