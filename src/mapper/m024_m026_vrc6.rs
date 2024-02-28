@@ -3,8 +3,8 @@
 //! <https://www.nesdev.org/wiki/VRC6>
 
 use crate::{
-    apu::PULSE_TABLE,
-    audio::Audio,
+    // apu::PULSE_TABLE,
+    // audio::Audio,
     cart::Cart,
     common::{Clock, Kind, Regional, Reset},
     mapper::{vrc_irq::VrcIrq, Mapped, MappedRead, MappedWrite, Mapper, MemMap},
@@ -334,13 +334,13 @@ impl MemMap for Vrc6 {
     }
 }
 
-impl Audio for Vrc6 {
-    #[inline]
-    #[must_use]
-    fn output(&self) -> f32 {
-        self.audio.output()
-    }
-}
+// impl Audio for Vrc6 {
+//     #[inline]
+//     #[must_use]
+//     fn output(&self) -> f32 {
+//         self.audio.output()
+//     }
+// }
 
 impl Clock for Vrc6 {
     fn clock(&mut self) -> usize {
@@ -388,12 +388,12 @@ impl Vrc6Audio {
         }
     }
 
-    #[inline]
-    #[must_use]
-    fn output(&self) -> f32 {
-        let pulse_scale = PULSE_TABLE[PULSE_TABLE.len() - 1] / 15.0;
-        pulse_scale * self.out
-    }
+    // #[inline]
+    // #[must_use]
+    // fn output(&self) -> f32 {
+    //     let pulse_scale = PULSE_TABLE[PULSE_TABLE.len() - 1] / 15.0;
+    //     pulse_scale * self.out
+    // }
 
     fn write_register(&mut self, addr: u16, val: u8) {
         // Only A0, A1 and A12-15 are used for registers, remaining addresses are mirrored.

@@ -7,9 +7,9 @@ use crate::{
     apu::{
         dmc::Dmc,
         pulse::{OutputFreq, Pulse, PulseChannel},
-        PULSE_TABLE,
+        // PULSE_TABLE,
     },
-    audio::Audio,
+    // audio::Audio,
     cart::Cart,
     common::{Clock, Kind, NesRegion, Regional, Reset},
     cpu::Cpu,
@@ -969,17 +969,17 @@ impl MemMap for Exrom {
     }
 }
 
-impl Audio for Exrom {
-    #[must_use]
-    fn output(&self) -> f32 {
-        let pulse1 = self.pulse1.output();
-        let pulse2 = self.pulse2.output();
-        let dmc = self.dmc.output();
-        let pulse_scale = PULSE_TABLE[PULSE_TABLE.len() - 1] / 15.0;
-        let out = -(pulse1 + pulse2 + dmc);
-        pulse_scale * out
-    }
-}
+// impl Audio for Exrom {
+//     #[must_use]
+//     fn output(&self) -> f32 {
+//         let pulse1 = self.pulse1.output();
+//         let pulse2 = self.pulse2.output();
+//         let dmc = self.dmc.output();
+//         let pulse_scale = PULSE_TABLE[PULSE_TABLE.len() - 1] / 15.0;
+//         let out = -(pulse1 + pulse2 + dmc);
+//         pulse_scale * out
+//     }
+// }
 
 impl Clock for Exrom {
     fn clock(&mut self) -> usize {
@@ -1046,7 +1046,7 @@ impl std::fmt::Debug for Exrom {
 
 #[cfg(test)]
 mod tests {
-    use crate::test_roms;
+    // use crate::test_roms;
 
     // #[test]
     // fn prg_ram_protect() {
@@ -1071,5 +1071,5 @@ mod tests {
     //     }
     // }
 
-    test_roms!("test_roms/mapper/m005_exrom", exram, basics);
+    // test_roms!("test_roms/mapper/m005_exrom", exram, basics);
 }

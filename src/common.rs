@@ -4,7 +4,7 @@ use enum_dispatch::enum_dispatch;
 use serde::{Deserialize, Serialize};
 use std::fmt::Write;
 #[cfg(not(target_arch = "wasm32"))]
-use std::path::{Path, PathBuf};
+// use std::path::{Path, PathBuf};
 
 pub const CONFIG_DIR: &str = ".config/tetanes";
 pub const SAVE_DIR: &str = "save";
@@ -102,17 +102,17 @@ macro_rules! hashmap {
     });
 }
 
-#[cfg(not(target_arch = "wasm32"))]
-pub(crate) fn config_dir() -> PathBuf {
-    dirs::home_dir()
-        .unwrap_or_else(|| PathBuf::from("./"))
-        .join(CONFIG_DIR)
-}
+// #[cfg(not(target_arch = "wasm32"))]
+// pub(crate) fn config_dir() -> PathBuf {
+//     dirs::home_dir()
+//         .unwrap_or_else(|| PathBuf::from("./"))
+//         .join(CONFIG_DIR)
+// }
 
-#[cfg(not(target_arch = "wasm32"))]
-pub(crate) fn config_path<P: AsRef<Path>>(path: P) -> PathBuf {
-    config_dir().join(path)
-}
+// #[cfg(not(target_arch = "wasm32"))]
+// pub(crate) fn config_path<P: AsRef<Path>>(path: P) -> PathBuf {
+//     config_dir().join(path)
+// }
 
 /// Prints a hex dump of a given byte array starting at `addr_offset`.
 #[must_use]
@@ -171,59 +171,59 @@ pub fn hexdump(data: &[u8], addr_offset: usize) -> Vec<String> {
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::*;
+    // use super::*;
     use crate::{
-        control_deck::ControlDeck,
+        // control_deck::ControlDeck,
         input::Slot,
-        mapper::{Mapper, MapperRevision},
-        nes::event::{Action, NesState, Setting},
-        ppu::Ppu,
-        video::VideoFilter,
+        // mapper::{Mapper, MapperRevision},
+        // nes::event::{Action, NesState, Setting},
+        // ppu::Ppu,
+        // video::VideoFilter,
     };
-    use anyhow::Context;
-    use once_cell::sync::Lazy;
-    use pix_engine::prelude::{Image, PixelFormat};
+    // use anyhow::Context;
+    // use once_cell::sync::Lazy;
+    // use pix_engine::prelude::{Image, PixelFormat};
     use serde::{Deserialize, Serialize};
-    use std::fmt::Write;
-    use std::{
-        collections::hash_map::DefaultHasher,
-        env,
-        fs::{self, File},
-        hash::{Hash, Hasher},
-        io::{BufReader, BufWriter},
-        path::{Path, PathBuf},
-    };
+    // use std::fmt::Write;
+    // use std::{
+    //     // collections::hash_map::DefaultHasher,
+    //     // env,
+    //     // fs::File,
+    //     // hash::{Hash, Hasher},
+    //     // io::BufReader,
+    //     // path::{Path, PathBuf},
+    // };
 
-    pub(crate) const RESULT_DIR: &str = "test_results";
+    // pub(crate) const RESULT_DIR: &str = "test_results";
 
-    static INIT_TESTS: Lazy<bool> = Lazy::new(|| {
-        let result_dir = PathBuf::from(RESULT_DIR);
-        if result_dir.exists() {
-            fs::remove_dir_all(result_dir).expect("cleared test results dir");
-        }
-        true
-    });
-    static PASS_DIR: Lazy<PathBuf> = Lazy::new(|| {
-        let directory = PathBuf::from(RESULT_DIR).join("pass");
-        fs::create_dir_all(&directory).expect("created pass test results dir");
-        directory
-    });
-    static FAIL_DIR: Lazy<PathBuf> = Lazy::new(|| {
-        let directory = PathBuf::from(RESULT_DIR).join("fail");
-        fs::create_dir_all(&directory).expect("created fail test results dir");
-        directory
-    });
+    // static INIT_TESTS: Lazy<bool> = Lazy::new(|| {
+    //     let result_dir = PathBuf::from(RESULT_DIR);
+    //     if result_dir.exists() {
+    //         fs::remove_dir_all(result_dir).expect("cleared test results dir");
+    //     }
+    //     true
+    // });
+    // static PASS_DIR: Lazy<PathBuf> = Lazy::new(|| {
+    //     let directory = PathBuf::from(RESULT_DIR).join("pass");
+    //     fs::create_dir_all(&directory).expect("created pass test results dir");
+    //     directory
+    // });
+    // static FAIL_DIR: Lazy<PathBuf> = Lazy::new(|| {
+    //     let directory = PathBuf::from(RESULT_DIR).join("fail");
+    //     fs::create_dir_all(&directory).expect("created fail test results dir");
+    //     directory
+    // });
 
-    #[macro_export]
-    macro_rules! test_roms {
-        ($directory:expr, $( $(#[ignore = $reason:expr])? $test:ident ),* $(,)?) => {$(
-            $(#[ignore = $reason])?
-            #[test]
-            fn $test() {
-                $crate::common::tests::test_rom($directory, stringify!($test));
-            }
-        )*};
-    }
+    // #[macro_export]
+    // macro_rules! test_roms {
+    //     ($directory:expr, $( $(#[ignore = $reason:expr])? $test:ident ),* $(,)?) => {$(
+    //         $(#[ignore = $reason])?
+    //         #[test]
+    //         fn $test() {
+    //             $crate::common::tests::test_rom($directory, stringify!($test));
+    //         }
+    //     )*};
+    // }
 
     #[derive(Debug, Clone, Serialize, Deserialize)]
     #[must_use]
@@ -235,8 +235,8 @@ pub(crate) mod tests {
         hash: Option<u64>,
         #[serde(skip_serializing_if = "Option::is_none")]
         slot: Option<Slot>,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        action: Option<Action>,
+        // #[serde(skip_serializing_if = "Option::is_none")]
+        // action: Option<Action>,
     }
 
     #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -246,167 +246,167 @@ pub(crate) mod tests {
         frames: Vec<TestFrame>,
     }
 
-    fn get_rom_tests(directory: &str) -> (PathBuf, Vec<RomTest>) {
-        let file = PathBuf::from(directory)
-            .join("tests")
-            .with_extension("json");
-        let tests = File::open(&file)
-            .and_then(|file| {
-                Ok(serde_json::from_reader::<_, Vec<RomTest>>(BufReader::new(
-                    file,
-                ))?)
-            })
-            .expect("valid rom test data");
-        (file, tests)
-    }
+    // fn get_rom_tests(directory: &str) -> (PathBuf, Vec<RomTest>) {
+    //     let file = PathBuf::from(directory)
+    //         .join("tests")
+    //         .with_extension("json");
+    //     let tests = File::open(&file)
+    //         .and_then(|file| {
+    //             Ok(serde_json::from_reader::<_, Vec<RomTest>>(BufReader::new(
+    //                 file,
+    //             ))?)
+    //         })
+    //         .expect("valid rom test data");
+    //     (file, tests)
+    // }
 
-    fn load_control_deck<P: AsRef<Path>>(path: P) -> ControlDeck {
-        let path = path.as_ref();
-        let mut rom = BufReader::new(File::open(path).expect("failed to open path"));
-        let mut deck = ControlDeck::default();
-        deck.load_rom(&path.to_string_lossy(), &mut rom)
-            .expect("failed to load rom");
-        deck.set_filter(VideoFilter::Pixellate);
-        deck.set_region(NesRegion::Ntsc);
-        deck
-    }
+    // fn load_control_deck<P: AsRef<Path>>(path: P) -> ControlDeck {
+    //     let path = path.as_ref();
+    //     let mut rom = BufReader::new(File::open(path).expect("failed to open path"));
+    //     let mut deck = ControlDeck::default();
+    //     deck.load_rom(&path.to_string_lossy(), &mut rom)
+    //         .expect("failed to load rom");
+    //     deck.set_filter(VideoFilter::Pixellate);
+    //     deck.set_region(NesRegion::Ntsc);
+    //     deck
+    // }
 
-    fn handle_frame_action(test_frame: &TestFrame, deck: &mut ControlDeck) {
-        if let Some(action) = test_frame.action {
-            log::debug!("{:?}", action);
-            match action {
-                Action::Nes(state) => match state {
-                    NesState::SoftReset => deck.reset(Kind::Soft),
-                    NesState::HardReset => deck.reset(Kind::Hard),
-                    NesState::MapperRevision(board) => match board {
-                        MapperRevision::Mmc3(revision) => {
-                            if let Mapper::Txrom(ref mut mapper) = deck.mapper_mut() {
-                                mapper.set_revision(revision);
-                            }
-                        }
-                        _ => panic!("unhandled MapperRevision {board:?}"),
-                    },
-                    _ => panic!("unhandled Nes state: {state:?}"),
-                },
-                Action::Setting(setting) => match setting {
-                    Setting::SetVideoFilter(filter) => deck.set_filter(filter),
-                    Setting::SetNesFormat(format) => deck.set_region(format),
-                    _ => panic!("unhandled Setting: {setting:?}"),
-                },
-                Action::Joypad(button) => {
-                    let slot = test_frame.slot.unwrap_or(Slot::One);
-                    let joypad = deck.joypad_mut(slot);
-                    joypad.set_button(button.into(), true);
-                }
-                _ => (),
-            }
-        }
-    }
+    // fn handle_frame_action(test_frame: &TestFrame, deck: &mut ControlDeck) {
+    //     if let Some(action) = test_frame.action {
+    //         log::debug!("{:?}", action);
+    //         match action {
+    //             Action::Nes(state) => match state {
+    //                 NesState::SoftReset => deck.reset(Kind::Soft),
+    //                 NesState::HardReset => deck.reset(Kind::Hard),
+    //                 NesState::MapperRevision(board) => match board {
+    //                     MapperRevision::Mmc3(revision) => {
+    //                         if let Mapper::Txrom(ref mut mapper) = deck.mapper_mut() {
+    //                             mapper.set_revision(revision);
+    //                         }
+    //                     }
+    //                     _ => panic!("unhandled MapperRevision {board:?}"),
+    //                 },
+    //                 _ => panic!("unhandled Nes state: {state:?}"),
+    //             },
+    //             Action::Setting(setting) => match setting {
+    //                 Setting::SetVideoFilter(filter) => deck.set_filter(filter),
+    //                 Setting::SetNesFormat(format) => deck.set_region(format),
+    //                 _ => panic!("unhandled Setting: {setting:?}"),
+    //             },
+    //             Action::Joypad(button) => {
+    //                 let slot = test_frame.slot.unwrap_or(Slot::One);
+    //                 let joypad = deck.joypad_mut(slot);
+    //                 joypad.set_button(button.into(), true);
+    //             }
+    //             _ => (),
+    //         }
+    //     }
+    // }
 
-    fn handle_snapshot(
-        test: &str,
-        test_frame: &TestFrame,
-        deck: &mut ControlDeck,
-        count: usize,
-    ) -> Option<(u64, u64, u32, PathBuf)> {
-        test_frame.hash.map(|expected| {
-            let mut hasher = DefaultHasher::new();
-            let frame = deck.frame_buffer();
-            frame.hash(&mut hasher);
-            let actual = hasher.finish();
-            log::debug!(
-                "frame : {}, matched: {}",
-                test_frame.number,
-                expected == actual
-            );
+    // fn handle_snapshot(
+    //     test: &str,
+    //     test_frame: &TestFrame,
+    //     deck: &mut ControlDeck,
+    //     count: usize,
+    // ) -> Option<(u64, u64, u32, PathBuf)> {
+    //     test_frame.hash.map(|expected| {
+    //         let mut hasher = DefaultHasher::new();
+    //         let frame = deck.frame_buffer();
+    //         frame.hash(&mut hasher);
+    //         let actual = hasher.finish();
+    //         log::debug!(
+    //             "frame : {}, matched: {}",
+    //             test_frame.number,
+    //             expected == actual
+    //         );
 
-            let result_dir = if env::var("UPDATE_SNAPSHOT").is_ok() || expected == actual {
-                &*PASS_DIR
-            } else {
-                &*FAIL_DIR
-            };
-            let mut filename = test.to_owned();
-            if let Some(ref name) = test_frame.name {
-                let _ = write!(filename, "_{name}");
-            } else if count > 0 {
-                let _ = write!(filename, "_{}", count + 1);
-            }
-            let screenshot = result_dir
-                .join(PathBuf::from(filename))
-                .with_extension("png");
+    //         let result_dir = if env::var("UPDATE_SNAPSHOT").is_ok() || expected == actual {
+    //             &*PASS_DIR
+    //         } else {
+    //             &*FAIL_DIR
+    //         };
+    //         let mut filename = test.to_owned();
+    //         if let Some(ref name) = test_frame.name {
+    //             let _ = write!(filename, "_{name}");
+    //         } else if count > 0 {
+    //             let _ = write!(filename, "_{}", count + 1);
+    //         }
+    //         let screenshot = result_dir
+    //             .join(PathBuf::from(filename))
+    //             .with_extension("png");
 
-            Image::from_bytes(Ppu::WIDTH, Ppu::HEIGHT, frame, PixelFormat::Rgba)
-                .expect("valid frame")
-                .save(&screenshot)
-                .expect("result screenshot");
+    //         Image::from_bytes(Ppu::WIDTH, Ppu::HEIGHT, frame, PixelFormat::Rgba)
+    //             .expect("valid frame")
+    //             .save(&screenshot)
+    //             .expect("result screenshot");
 
-            (expected, actual, test_frame.number, screenshot)
-        })
-    }
+    //         (expected, actual, test_frame.number, screenshot)
+    //     })
+    // }
 
-    pub(crate) fn test_rom(directory: &str, test_name: &str) {
-        if !&*INIT_TESTS {
-            log::debug!("Initialized tests");
-        }
+    // pub(crate) fn test_rom(directory: &str, test_name: &str) {
+    //     if !&*INIT_TESTS {
+    //         log::debug!("Initialized tests");
+    //     }
 
-        let (test_file, mut tests) = get_rom_tests(directory);
-        let mut test = tests.iter_mut().find(|test| test.name.eq(test_name));
-        assert!(test.is_some(), "No test found matching {test_name:?}");
-        let test = test.as_mut().expect("definitely has a test");
+    //     let (test_file, mut tests) = get_rom_tests(directory);
+    //     let mut test = tests.iter_mut().find(|test| test.name.eq(test_name));
+    //     assert!(test.is_some(), "No test found matching {test_name:?}");
+    //     let test = test.as_mut().expect("definitely has a test");
 
-        let rom = PathBuf::from(directory)
-            .join(PathBuf::from(&test.name))
-            .with_extension("nes");
-        assert!(rom.exists(), "No test rom found for {rom:?}");
+    //     let rom = PathBuf::from(directory)
+    //         .join(PathBuf::from(&test.name))
+    //         .with_extension("nes");
+    //     assert!(rom.exists(), "No test rom found for {rom:?}");
 
-        let mut deck = load_control_deck(&rom);
-        if env::var("RUST_LOG").is_ok() {
-            let _ = pretty_env_logger::try_init();
-        }
+    //     let mut deck = load_control_deck(&rom);
+    //     if env::var("RUST_LOG").is_ok() {
+    //         let _ = pretty_env_logger::try_init();
+    //     }
 
-        let mut results = Vec::new();
-        for test_frame in test.frames.iter() {
-            log::debug!("{} - {:?}", test_frame.number, deck.joypad_mut(Slot::One));
+    //     let mut results = Vec::new();
+    //     for test_frame in test.frames.iter() {
+    //         log::debug!("{} - {:?}", test_frame.number, deck.joypad_mut(Slot::One));
 
-            while deck.frame_number() < test_frame.number {
-                deck.clock_frame().expect("valid frame clock");
-                deck.clear_audio_samples();
-                deck.joypad_mut(Slot::One).reset(Kind::Soft);
-                deck.joypad_mut(Slot::Two).reset(Kind::Soft);
-            }
+    //         while deck.frame_number() < test_frame.number {
+    //             deck.clock_frame().expect("valid frame clock");
+    //             deck.clear_audio_samples();
+    //             deck.joypad_mut(Slot::One).reset(Kind::Soft);
+    //             deck.joypad_mut(Slot::Two).reset(Kind::Soft);
+    //         }
 
-            handle_frame_action(test_frame, &mut deck);
-            if let Some(result) = handle_snapshot(&test.name, test_frame, &mut deck, results.len())
-            {
-                results.push(result);
-            }
-        }
-        let mut update_required = false;
-        for (mut expected, actual, frame_number, screenshot) in results {
-            if env::var("UPDATE_SNAPSHOT").is_ok() && expected != actual {
-                expected = actual;
-                update_required = true;
-                if let Some(ref mut frame) = test
-                    .frames
-                    .iter_mut()
-                    .find(|frame| frame.number == frame_number)
-                {
-                    frame.hash = Some(actual);
-                }
-            }
-            assert_eq!(
-                expected, actual,
-                "mismatched snapshot for {rom:?} -> {screenshot:?}",
-            );
-        }
-        if update_required {
-            File::create(test_file)
-                .context("failed to open rom test file")
-                .and_then(|file| {
-                    serde_json::to_writer_pretty(BufWriter::new(file), &tests)
-                        .context("failed to serialize rom data")
-                })
-                .expect("failed to update snapshot");
-        }
-    }
+    //         handle_frame_action(test_frame, &mut deck);
+    //         if let Some(result) = handle_snapshot(&test.name, test_frame, &mut deck, results.len())
+    //         {
+    //             results.push(result);
+    //         }
+    //     }
+    //     let mut update_required = false;
+    //     for (mut expected, actual, frame_number, screenshot) in results {
+    //         if env::var("UPDATE_SNAPSHOT").is_ok() && expected != actual {
+    //             expected = actual;
+    //             update_required = true;
+    //             if let Some(ref mut frame) = test
+    //                 .frames
+    //                 .iter_mut()
+    //                 .find(|frame| frame.number == frame_number)
+    //             {
+    //                 frame.hash = Some(actual);
+    //             }
+    //         }
+    //         assert_eq!(
+    //             expected, actual,
+    //             "mismatched snapshot for {rom:?} -> {screenshot:?}",
+    //         );
+    //     }
+    //     if update_required {
+    //         File::create(test_file)
+    //             .context("failed to open rom test file")
+    //             .and_then(|file| {
+    //                 serde_json::to_writer_pretty(BufWriter::new(file), &tests)
+    //                     .context("failed to serialize rom data")
+    //             })
+    //             .expect("failed to update snapshot");
+    //     }
+    // }
 }

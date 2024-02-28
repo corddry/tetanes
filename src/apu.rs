@@ -10,7 +10,7 @@ use crate::{
     common::{Clock, Kind, NesRegion, Regional, Reset},
     cpu::Irq,
 };
-use once_cell::sync::Lazy;
+// use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
 pub mod dmc;
@@ -423,20 +423,20 @@ impl std::fmt::Debug for Apu {
     }
 }
 
-pub(crate) static PULSE_TABLE: Lazy<[f32; 31]> = Lazy::new(|| {
-    let mut pulse_table = [0.0; 31];
-    for (i, val) in pulse_table.iter_mut().enumerate().skip(1) {
-        *val = 95.52 / (8_128.0 / (i as f32) + 100.0);
-    }
-    pulse_table
-});
-static TND_TABLE: Lazy<[f32; 203]> = Lazy::new(|| {
-    let mut tnd_table = [0.0; 203];
-    for (i, val) in tnd_table.iter_mut().enumerate().skip(1) {
-        *val = 163.67 / (24_329.0 / (i as f32) + 100.0);
-    }
-    tnd_table
-});
+// pub(crate) static PULSE_TABLE: Lazy<[f32; 31]> = Lazy::new(|| {
+//     let mut pulse_table = [0.0; 31];
+//     for (i, val) in pulse_table.iter_mut().enumerate().skip(1) {
+//         *val = 95.52 / (8_128.0 / (i as f32) + 100.0);
+//     }
+//     pulse_table
+// });
+// static TND_TABLE: Lazy<[f32; 203]> = Lazy::new(|| {
+//     let mut tnd_table = [0.0; 203];
+//     for (i, val) in tnd_table.iter_mut().enumerate().skip(1) {
+//         *val = 163.67 / (24_329.0 / (i as f32) + 100.0);
+//     }
+//     tnd_table
+// });
 
 #[cfg(test)]
 impl Apu {

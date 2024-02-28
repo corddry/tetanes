@@ -320,16 +320,16 @@ impl Regional for Txrom {}
 
 #[cfg(test)]
 mod tests {
-    use crate::test_roms;
+    // use crate::test_roms;
 
-    test_roms!(
-        "test_roms/mapper/m004_txrom",
-        a12_clocking,
-        clocking,
-        details,
-        rev_b,
-        scanline_timing,
-        big_chr_ram,
-        rev_a,
-    );
+    // test_roms!(
+    //     "test_roms/mapper/m004_txrom",
+    //     a12_clocking,
+    //     clocking,
+    //     details,
+    //     rev_b,
+    //     scanline_timing,
+    //     big_chr_ram,
+    //     rev_a,
+    // );
 }

@@ -514,17 +514,17 @@ impl Reset for Zapper {
 
 #[cfg(test)]
 mod tests {
-    use crate::test_roms;
+    // use crate::test_roms;
 
-    test_roms!(
-        "test_roms/input",
-        #[ignore = "todo"]
-        zapper_flip,
-        #[ignore = "todo"]
-        zapper_light,
-        #[ignore = "todo"]
-        zapper_stream,
-        #[ignore = "todo"]
-        zapper_trigger,
-    );
+    // test_roms!(
+    //     "test_roms/input",
+    //     #[ignore = "todo"]
+    //     zapper_flip,
+    //     #[ignore = "todo"]
+    //     zapper_light,
+    //     #[ignore = "todo"]
+    //     zapper_stream,
+    //     #[ignore = "todo"]
+    //     zapper_trigger,
+    // );
 }

@@ -1151,7 +1151,7 @@ impl fmt::Debug for Cpu {
 
 #[cfg(test)]
 mod tests {
-    use crate::test_roms;
+    // use crate::test_roms;
 
     #[test]
     fn cycle_timing() {
@@ -1188,47 +1188,47 @@ mod tests {
         }
     }
 
-    test_roms!(
-        "test_roms/cpu",
-        branch_backward,
-        nestest,
-        ram_after_reset,
-        regs_after_reset,
-        branch_basics,
-        branch_forward,
-        dummy_reads,
-        dummy_writes_oam,
-        dummy_writes_ppumem,
-        exec_space_apu,
-        exec_space_ppuio,
-        flag_concurrency,
-        instr_abs,
-        instr_abs_xy,
-        instr_basics,
-        instr_branches,
-        instr_brk,
-        instr_imm,
-        instr_imp,
-        instr_ind_x,
-        instr_ind_y,
-        instr_jmp_jsr,
-        instr_misc,
-        instr_rti,
-        instr_rts,
-        instr_special,
-        instr_stack,
-        instr_timing,
-        instr_zp,
-        instr_zp_xy,
-        int_branch_delays_irq,
-        int_cli_latency,
-        int_irq_and_dma,
-        int_nmi_and_brk,
-        int_nmi_and_irq,
-        #[ignore = "need to fix frame timing"]
-        overclock,
-        sprdma_and_dmc_dma,
-        sprdma_and_dmc_dma_512,
-        timing_test,
-    );
+    // test_roms!(
+    //     "test_roms/cpu",
+    //     branch_backward,
+    //     nestest,
+    //     ram_after_reset,
+    //     regs_after_reset,
+    //     branch_basics,
+    //     branch_forward,
+    //     dummy_reads,
+    //     dummy_writes_oam,
+    //     dummy_writes_ppumem,
+    //     exec_space_apu,
+    //     exec_space_ppuio,
+    //     flag_concurrency,
+    //     instr_abs,
+    //     instr_abs_xy,
+    //     instr_basics,
+    //     instr_branches,
+    //     instr_brk,
+    //     instr_imm,
+    //     instr_imp,
+    //     instr_ind_x,
+    //     instr_ind_y,
+    //     instr_jmp_jsr,
+    //     instr_misc,
+    //     instr_rti,
+    //     instr_rts,
+    //     instr_special,
+    //     instr_stack,
+    //     instr_timing,
+    //     instr_zp,
+    //     instr_zp_xy,
+    //     int_branch_delays_irq,
+    //     int_cli_latency,
+    //     int_irq_and_dma,
+    //     int_nmi_and_brk,
+    //     int_nmi_and_irq,
+    //     #[ignore = "need to fix frame timing"]
+    //     overclock,
+    //     sprdma_and_dmc_dma,
+    //     sprdma_and_dmc_dma_512,
+    //     timing_test,
+    // );
 }

@@ -15,11 +15,11 @@
 //!     <path>    The NES ROM to load, a directory containing `.nes` ROM files, or a recording
 //!               playback `.playback` file. [default: current directory]
 
-#![windows_subsystem = "windows"]
+// #![windows_subsystem = "windows"]
 
-use std::{env, path::PathBuf};
-use structopt::StructOpt;
-use tetanes::{mem::RamState, NesResult};
+// use std::{env, path::PathBuf};
+// use structopt::StructOpt;
+// use tetanes::mem::RamState;
 
 fn main() {
     // if env::var("RUST_LOG").is_err() {
@@ -42,43 +42,44 @@ fn main() {
     log::warn!("main function of headless tetanes has been removed");
 }
 
-#[derive(StructOpt, Debug)]
-#[must_use]
-#[structopt(
-    name = "tetanes",
-    about = "A NES Emulator written in Rust with SDL2 and WebAssembly support",
-    version = "0.6.1",
-    author = "Luke Petherbridge <me@lukeworks.tech>"
-)]
-/// `TetaNES` Command-Line Options
-struct Opt {
-    #[structopt(
-        help = "The NES ROM to load or a directory containing `.nes` ROM files. [default: current directory]"
-    )]
-    path: Option<PathBuf>,
-    #[structopt(
-        short = "r",
-        long = "replay",
-        help = "A `.replay` recording file for gameplay recording and playback."
-    )]
-    replay: Option<PathBuf>,
-    #[structopt(short = "f", long = "fullscreen", help = "Start fullscreen.")]
-    fullscreen: bool,
-    #[structopt(
-        long = "ram_state",
-        help = "Choose power-up RAM state: 'all_zeros', `all_ones`, `random` (default)."
-    )]
-    ram_state: Option<RamState>,
-    #[structopt(short = "s", long = "scale", help = "Window scale, defaults to 3.0.")]
-    scale: Option<f32>,
-    #[structopt(long = "speed", help = "Emulation speed, defaults to 1.0.")]
-    speed: Option<f32>,
-    #[structopt(
-        short = "g",
-        long = "genie-codes",
-        help = "List of Game Genie Codes (space separated)."
-    )]
-    genie_codes: Vec<String>,
-    #[structopt(long = "debug", help = "Start debugging")]
-    debug: bool,
-}
+// #[derive(StructOpt, Debug)]
+// #[must_use]
+// #[structopt(
+//     name = "tetanes",
+//     about = "A NES Emulator written in Rust with SDL2 and WebAssembly support",
+//     version = "0.6.1",
+//     #[structopt(
+//         help = "The NES ROM to load or a directory containing `.nes` ROM files. [default: current directory]"
+//     )]
+//     path: Option<PathBuf>,
+//     #[structopt(
+//         short = "r",
+//         long = "replay",
+//         help = "A `.replay` recording file for gameplay recording and playback."
+//     )]
+//     replay: Option<PathBuf>,
+//     #[structopt(short = "f", long = "fullscreen", help = "Start fullscreen.")]
+//     fullscreen: bool,
+//     #[structopt(
+//         long = "ram_state",
+//         help = "Choose power-up RAM state: 'all_zeros', `all_ones`, `random` (default)."
+//     )]
+//     ram_state: Option<RamState>,
+//     #[structopt(short = "s", long = "scale", help = "Window scale, defaults to 3.0.")]
+//     scale: Option<f32>,
+//     #[structopt(long = "speed", help = "Emulation speed, defaults to 1.0.")]
+//     speed: Option<f32>,
+//     #[structopt(
+//         short = "g",
+//         long = "genie-codes",
+//         help = "List of Game Genie Codes (space separated)."
+//     )]
+//     genie_codes: Vec<String>,
+//     #[structopt(long = "debug", help = "Start debugging")]
+//     debug: bool,
+// }
+
+//     author = "Luke Petherbridge <me@lukeworks.tech>"
+// )]
+// /// `TetaNES` Command-Line Options
+// // struct Opt {

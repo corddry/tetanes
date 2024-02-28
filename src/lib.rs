@@ -40,7 +40,7 @@
     html_logo_url = "https://github.com/lukexor/tetanes/blob/main/static/tetanes_icon.png?raw=true"
 )]
 
-pub mod audio;
+// pub mod audio;
 pub mod genie;
 
 pub mod apu;
