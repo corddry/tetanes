@@ -39,18 +39,10 @@ serde_json = "1.0"
 structopt = "0.3"
 
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-# Required because of downstream dependencies: https://docs.rs/getrandom/latest/getrandom/#webassembly-support
-getrandom = { version = "0.2", features = ["js"] }
-wasm-bindgen = "0.2"
-
 [dev-dependencies]
 criterion = { version = "0.5.1", features = ["html_reports"] }
 
 
-[[bench]]
-name = "nes"
-harness = false
 
 [features]
 default = ["cycle-accurate"]
@@ -90,8 +82,6 @@ installers = ["shell", "homebrew", "msi"]
 targets = ["aarch64-apple-darwin", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
 # Publish jobs to run in CI
 pr-run-mode = "plan"
-# A GitHub repo to push Homebrew formulas to
-tap = "lukexor/formulae"
 # Publish jobs to run in CI
 publish-jobs = ["homebrew", "./package-macos"]
 # Skip checking whether the specified configuration files are up to date
